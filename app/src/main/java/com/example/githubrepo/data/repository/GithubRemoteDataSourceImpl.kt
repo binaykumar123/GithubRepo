@@ -1,8 +1,8 @@
-package com.example.data.repository
+package com.example.githubrepo.data.repository
 
-import com.example.data.apiservice.ApiService
-import com.example.data.apiservice.RetrofitHelper
-import com.example.data.models.PullRequest
+import com.example.githubrepo.data.apiservice.ApiService
+import com.example.githubrepo.data.apiservice.RetrofitHelper
+import com.example.githubrepo.data.models.PullRequest
 import retrofit2.Response
 
 class GithubRemoteDataSourceImpl : GithubRemoteDataSource {

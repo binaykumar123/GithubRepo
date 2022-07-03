@@ -8,5 +8,3 @@ dependencyResolutionManagement {
 }
 rootProject.name = "GithubRepo"
 include ':app'
-include ':domain'
-include ':data'

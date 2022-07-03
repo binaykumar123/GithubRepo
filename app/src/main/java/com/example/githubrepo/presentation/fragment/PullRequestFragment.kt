@@ -1,4 +1,4 @@
-package com.example.githubrepo.fragment
+package com.example.githubrepo.presentation.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

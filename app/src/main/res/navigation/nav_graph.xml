@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/pullRequestFragment"
-        android:name="com.example.githubrepo.fragment.PullRequestFragment"
+        android:name="com.example.githubrepo.presentation.fragment.PullRequestFragment"
         android:label="@string/pr_fragment_label"
         tools:layout="@layout/fragment_pull_request" />
 </navigation>

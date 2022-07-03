@@ -1,4 +1,4 @@
-package com.example.githubrepo.activity
+package com.example.githubrepo.presentation.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

@@ -5,9 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubrepo.R
+import com.example.githubrepo.databinding.FragmentPullRequestBinding
+import com.example.githubrepo.presentation.adapters.PullRequestAdapter
+import com.example.githubrepo.presentation.viewmodel.MainViewModel
 
 class PullRequestFragment : Fragment() {
+
+    private lateinit var binding: FragmentPullRequestBinding
+    private lateinit var pullRequestAdapter: PullRequestAdapter
+    private val mainViewModel: MainViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,8 +26,35 @@ class PullRequestFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_pull_request, container, false)
+    ): View {
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_pull_request, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupRecyclerView()
+        setObservers()
+        fetchApi()
+    }
+
+    private fun setupRecyclerView() {
+        pullRequestAdapter = PullRequestAdapter()
+        binding.pullsRV.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = pullRequestAdapter
+        }
+    }
+
+    private fun setObservers() {
+        mainViewModel.closedPullRequests.observe(this) {
+            pullRequestAdapter.addItems(it)
+        }
+    }
+
+    private fun fetchApi() {
+        mainViewModel.fetchAllClosedRequest()
     }
 
 }

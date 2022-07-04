@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
@@ -13,16 +14,13 @@ import com.example.githubrepo.R
 import com.example.githubrepo.databinding.FragmentPullRequestBinding
 import com.example.githubrepo.presentation.adapters.PullRequestAdapter
 import com.example.githubrepo.presentation.viewmodel.MainViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class PullRequestFragment : Fragment() {
 
     private lateinit var binding: FragmentPullRequestBinding
     private lateinit var pullRequestAdapter: PullRequestAdapter
     private val mainViewModel: MainViewModel by activityViewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,10 +48,19 @@ class PullRequestFragment : Fragment() {
 
     private fun setObservers() {
         mainViewModel.closedPullRequests.observe(this) {
-            pullRequestAdapter.addItems(it)
+            pullRequestAdapter.addAll(it)
         }
         mainViewModel.isDataLoading.observe(this) {
             binding.progressBar.isVisible = it
+        }
+        mainViewModel.isDataLoadingError.observe(this) {
+            if (it) {
+                Snackbar.make(binding.root, "Something went wrong", Snackbar.LENGTH_LONG)
+                    .setAction("RETRY", View.OnClickListener {
+                        fetchApi()
+                    }).show()
+                mainViewModel.isDataLoadingError.value = false
+            }
         }
     }
 

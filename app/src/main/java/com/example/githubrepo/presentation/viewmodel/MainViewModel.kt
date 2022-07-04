@@ -1,7 +1,5 @@
 package com.example.githubrepo.presentation.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,7 +10,7 @@ import com.example.githubrepo.domain.common.Result
 import com.example.githubrepo.domain.usescases.GetClosedPullRequest
 import kotlinx.coroutines.launch
 
-class MainViewModel() : ViewModel() {
+class MainViewModel : ViewModel() {
     private val getClosedPullRequest = GetClosedPullRequest(GithubRepository())
 
     val closedPullRequests: MutableLiveData<ArrayList<PullRequest>> by lazy {
@@ -20,6 +18,7 @@ class MainViewModel() : ViewModel() {
     }
 
     val isDataLoading = MutableLiveData(false)
+    val isDataLoadingError = MutableLiveData(false)
     private var currentPage = 1
     private var username: String = "binaykumar123"
         set(value) {
@@ -54,7 +53,7 @@ class MainViewModel() : ViewModel() {
                     increasePageNumber()
                 }
                 is Result.ApiError -> {
-
+                    isDataLoadingError.postValue(true)
                 }
                 else -> {
 
@@ -66,9 +65,5 @@ class MainViewModel() : ViewModel() {
 
     private fun increasePageNumber() {
         currentPage++
-    }
-
-    override fun onCleared() {
-        super.onCleared()
     }
 }

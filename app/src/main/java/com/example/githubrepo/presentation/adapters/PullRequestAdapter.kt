@@ -8,6 +8,10 @@ import com.example.githubrepo.databinding.ItemPullRequestBinding
 import com.example.githubrepo.utils.CircleTransform
 import com.example.githubrepo.utils.formattedDate
 import com.squareup.picasso.Picasso
+import android.graphics.Movie
+
+
+
 
 class PullRequestAdapter : RecyclerView.Adapter<PullRequestAdapter.PullRequestViewHolder>() {
 
@@ -37,8 +41,14 @@ class PullRequestAdapter : RecyclerView.Adapter<PullRequestAdapter.PullRequestVi
         return pullRequests.size
     }
 
-    fun addItems(pullRequests : ArrayList<PullRequest>){
-        this.pullRequests.addAll(pullRequests)
-        notifyDataSetChanged()
+    private fun add(pullRequest: PullRequest) {
+        pullRequests.add(pullRequest)
+        notifyItemInserted(pullRequests.size - 1)
+    }
+
+    fun addAll(pullRequests : ArrayList<PullRequest>) {
+        for (pull in pullRequests) {
+            add(pull)
+        }
     }
 }

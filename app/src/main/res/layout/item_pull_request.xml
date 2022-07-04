@@ -11,8 +11,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:clipToPadding="true"
+        android:paddingTop="8dp"
         android:background="@drawable/bg_2a2a2a_radius_8dp"
-        android:paddingHorizontal="4dp"
         android:minHeight="0dp">
 
         <ImageView
@@ -20,6 +20,7 @@
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,6 +32,7 @@
             android:textSize="15sp"
             android:textStyle="bold"
             android:textColor="#ffffff"
+            android:layout_marginEnd="4dp"
             app:layout_constraintLeft_toRightOf="@id/profileIV"
             app:layout_constraintTop_toTopOf="@id/profileIV"
             tool:text="Pull Request Title" />
@@ -42,6 +44,7 @@
             android:layout_marginStart="16dp"
             android:textColor="#ffffff"
             android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
             android:textSize="13sp"
             app:layout_constraintLeft_toRightOf="@id/profileIV"
             app:layout_constraintTop_toBottomOf="@id/titleTV"
@@ -54,7 +57,7 @@
             android:textColor="#ffffff"
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
-            android:layout_marginEnd="4dp"
+            android:layout_marginEnd="8dp"
             android:textSize="11sp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/titleTV"
@@ -73,12 +76,20 @@
             tool:text="BinayKumar" />
 
         <View
+            android:id="@+id/divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="8dp"
             android:background="#3a3a3a"
             android:textColor="#ffffff"
             app:layout_constraintTop_toBottomOf="@id/profileIV" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="12dp"
+            android:background="#1a1a1a"
+            android:textColor="#ffffff"
+            app:layout_constraintTop_toBottomOf="@id/divider" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

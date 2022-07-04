@@ -14,9 +14,11 @@ import kotlinx.coroutines.launch
 
 class MainViewModel() : ViewModel() {
     private val getClosedPullRequest = GetClosedPullRequest(GithubRepository())
+
     val closedPullRequests: MutableLiveData<ArrayList<PullRequest>> by lazy {
         MutableLiveData<ArrayList<PullRequest>>()
     }
+
     private var currentPage = 1
     private var username: String = "binaykumar123"
         set(value) {
@@ -29,20 +31,23 @@ class MainViewModel() : ViewModel() {
 
     fun fetchAllClosedRequest() {
         viewModelScope.launch {
-            // closedPullRequests.postValue(Result.loading(true))
             val closedPullRequestResult = getClosedPullRequest(
                 PullRequestParams(username, repo, currentPage)
             )
             when (closedPullRequestResult) {
                 is Result.Success -> {
-                    if (closedPullRequests.value == null) {
-                        closedPullRequests.postValue(closedPullRequestResult.data)
-                    } else if (closedPullRequests.value!!.isEmpty()) {
-                        closedPullRequests.postValue(closedPullRequestResult.data)
-                    } else {
-                        val existingElements = closedPullRequests.value
-                        existingElements?.addAll(closedPullRequestResult.data)
-                        closedPullRequests.postValue(existingElements)
+                    when {
+                        closedPullRequests.value == null -> {
+                            closedPullRequests.postValue(closedPullRequestResult.data)
+                        }
+                        closedPullRequests.value!!.isEmpty() -> {
+                            closedPullRequests.postValue(closedPullRequestResult.data)
+                        }
+                        else -> {
+                            val existingElements = closedPullRequests.value
+                            existingElements?.addAll(closedPullRequestResult.data)
+                            closedPullRequests.postValue(existingElements)
+                        }
                     }
                     increasePageNumber()
                 }

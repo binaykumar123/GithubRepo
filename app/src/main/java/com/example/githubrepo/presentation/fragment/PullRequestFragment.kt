@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -50,6 +51,9 @@ class PullRequestFragment : Fragment() {
     private fun setObservers() {
         mainViewModel.closedPullRequests.observe(this) {
             pullRequestAdapter.addItems(it)
+        }
+        mainViewModel.isDataLoading.observe(this) {
+            binding.progressBar.isVisible = it
         }
     }
 

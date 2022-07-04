@@ -5,6 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubrepo.data.models.PullRequest
 import com.example.githubrepo.databinding.ItemPullRequestBinding
+import com.example.githubrepo.utils.CircleTransform
+import com.example.githubrepo.utils.formattedDate
 import com.squareup.picasso.Picasso
 
 class PullRequestAdapter : RecyclerView.Adapter<PullRequestAdapter.PullRequestViewHolder>() {
@@ -23,10 +25,10 @@ class PullRequestAdapter : RecyclerView.Adapter<PullRequestAdapter.PullRequestVi
         with(holder) {
             with(pullRequests[position]) {
                 binding.userNameTV.text = this.user.login
-                binding.closedDateTV.text = this.updatedAt
-                binding.createdDateTV.text = this.updatedAt
+                binding.closedDateTV.text = formattedDate(this.updatedAt)
+                binding.createdDateTV.text = formattedDate(this.updatedAt)
                 binding.titleTV.text = this.title
-                Picasso.get().load(this.user.avatarUrl).into(binding.profileIV)
+                Picasso.get().load(this.user.avatarUrl).transform(CircleTransform()).into(binding.profileIV)
             }
         }
     }

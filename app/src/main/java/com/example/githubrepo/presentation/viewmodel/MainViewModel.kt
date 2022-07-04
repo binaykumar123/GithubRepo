@@ -19,6 +19,7 @@ class MainViewModel() : ViewModel() {
         MutableLiveData<ArrayList<PullRequest>>()
     }
 
+    val isDataLoading = MutableLiveData(false)
     private var currentPage = 1
     private var username: String = "binaykumar123"
         set(value) {
@@ -31,6 +32,7 @@ class MainViewModel() : ViewModel() {
 
     fun fetchAllClosedRequest() {
         viewModelScope.launch {
+            isDataLoading.postValue(true)
             val closedPullRequestResult = getClosedPullRequest(
                 PullRequestParams(username, repo, currentPage)
             )
@@ -58,6 +60,7 @@ class MainViewModel() : ViewModel() {
 
                 }
             }
+            isDataLoading.postValue(false)
         }
     }
 

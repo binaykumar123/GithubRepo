@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/bg_2a2a2a_radius_8dp.xml" value="0.2708333333333333" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1956521739130435" />
         <entry key="app/src/main/res/layout/fragment_pull_request.xml" value="0.1770516717325228" />
         <entry key="app/src/main/res/layout/item_pull_request.xml" value="0.22871376811594202" />
